@@ -1,12 +1,37 @@
-import React from 'react';
+import React from "react";
+import {
+  MdCheckBox,
+  MdCheckBoxOutlineBlank,
+  MdModeEditOutline,
+  MdRemoveCircleOutline,
+} from "react-icons/md";
 
-const TodoListItem = () => {
+const TodoListItem = ({ todo }) => {
+  const { id, content, checked } = todo;
   return (
-     <tr>
-        <th>1</th>
-        <td>기상</td>
-        <td>true</td>
-      </tr>  
+    <tr>
+      <th>{id}</th>
+      <td>{content}</td>
+      <td>
+        <div
+          onClick={() => {
+            alert("체크 출력됨");
+          }}
+        >
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </div>
+      </td>
+      <td className="edit">
+        <div>
+          <MdModeEditOutline />
+        </div>
+      </td>
+      <td className="remove">
+        <div>
+          <MdRemoveCircleOutline />
+        </div>
+      </td>
+    </tr>
   );
 };
 

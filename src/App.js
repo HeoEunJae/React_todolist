@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./index.css";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
@@ -13,7 +13,7 @@ function App() {
     {
       id: 2,
       content: "밥먹기",
-      checked: false,
+      checked: true,
     },
     {
       id: 3,
@@ -21,9 +21,10 @@ function App() {
       checked: false,
     },
   ]);
+  const nextId = useRef(4);
   return (
     <div className="max-w-4xl mx-auto mt-4">
-      <TodoInput />
+      <TodoInput todos={todos} setTodos={setTodos} nextId={nextId} />
       <TodoList todos={todos} />
     </div>
   );
