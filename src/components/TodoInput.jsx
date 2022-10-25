@@ -1,16 +1,22 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const TodoInput = ({ todos, nextId, setTodos }) => {
-  const [value, setValue] = useState("");
+  const [content, setContent] = useState("");
   return (
     <div className="form-control w-full">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          const todo = { id: nextId.current, content: value, checked: false };
+          const todo = { id: nextId.current, content, checked: false };
           setTodos((prev) => prev.concat(todo));
+          axios({
+            url: "http://localhost:8083/todos",
+            method: "POST",
+            data: { content },
+          });
           nextId.current++;
-          setValue("");
+          setContent("");
         }}
       >
         <label className="label">
@@ -20,9 +26,9 @@ const TodoInput = ({ todos, nextId, setTodos }) => {
           type="text"
           placeholder="Type here"
           className="input input-bordered w-full max-w-xs"
-          value={value}
+          value={content}
           onChange={(e) => {
-            setValue(e.target.value);
+            setContent(e.target.value);
           }}
         />
       </form>
