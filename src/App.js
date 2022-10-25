@@ -3,7 +3,6 @@ import axios from "axios";
 import "./index.css";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
-import { data } from "autoprefixer";
 
 function App() {
   const [todos, setTodos] = useState([]);

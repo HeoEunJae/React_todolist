@@ -6,15 +6,15 @@ const TodoInput = ({ todos, nextId, setTodos }) => {
   return (
     <div className="form-control w-full">
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          const todo = { id: nextId.current, content, checked: false };
-          setTodos((prev) => prev.concat(todo));
-          axios({
+
+          const data = await axios({
             url: "http://localhost:8083/todos",
             method: "POST",
             data: { content },
           });
+          setTodos(data.data);
           nextId.current++;
           setContent("");
         }}
