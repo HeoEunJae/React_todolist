@@ -6,7 +6,7 @@ import {
   MdRemoveCircleOutline,
 } from "react-icons/md";
 
-const TodoListItem = ({ todo }) => {
+const TodoListItem = ({ todo, setTodos }) => {
   const { id, content, checked } = todo;
   return (
     <tr>
@@ -27,7 +27,12 @@ const TodoListItem = ({ todo }) => {
         </div>
       </td>
       <td className="remove">
-        <div>
+        <div
+          onClick={() => {
+            alert("클릭은 되냐");
+            setTodos((todos) => todos.filter((todo) => todo.id !== id));
+          }}
+        >
           <MdRemoveCircleOutline />
         </div>
       </td>
