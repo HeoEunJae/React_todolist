@@ -5,12 +5,13 @@ import {
   MdModeEditOutline,
   MdRemoveCircleOutline,
 } from "react-icons/md";
+import axios from "axios";
 
-const TodoListItem = ({ todo, setTodos }) => {
+const TodoListItem = ({ todo, setTodos, index }) => {
   const { id, content, checked } = todo;
   return (
     <tr>
-      <th>{id}</th>
+      <th>{index + 1}</th>
       <td>{content}</td>
       <td>
         <div
@@ -28,9 +29,14 @@ const TodoListItem = ({ todo, setTodos }) => {
       </td>
       <td className="remove">
         <div
-          onClick={() => {
+          onClick={async () => {
             alert("클릭은 되냐");
-            setTodos((todos) => todos.filter((todo) => todo.id !== id));
+            // setTodos((todos) => todos.filter((todo) => todo.id !== id));
+            const data = await axios({
+              url: `http://localhost:8083/todos/${id}`,
+              method: "DELETE",
+            });
+            setTodos(data.data);
           }}
         >
           <MdRemoveCircleOutline />
