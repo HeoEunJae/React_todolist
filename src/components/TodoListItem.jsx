@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import axios from "axios";
 
-const TodoListItem = ({ todo, setTodos, index }) => {
+const TodoListItem = ({ todo, setTodos, index, setActive }) => {
   const { id, content, checked } = todo;
   return (
     <tr>
@@ -33,9 +33,15 @@ const TodoListItem = ({ todo, setTodos, index }) => {
         </div>
       </td>
       <td className="edit">
-        <div>
+        <label
+          htmlFor="my-modal-5"
+          className="modal-button cursor-pointer"
+          onClick={() => {
+            setActive(true);
+          }}
+        >
           <MdModeEditOutline />
-        </div>
+        </label>
       </td>
       <td className="remove">
         <div
