@@ -15,8 +15,18 @@ const TodoListItem = ({ todo, setTodos, index }) => {
       <td>{content}</td>
       <td>
         <div
-          onClick={() => {
-            alert("체크 출력됨");
+          onClick={async () => {
+            alert(`${index + 1}번 체크박스 클릭됨`);
+            // setTodos((todos) =>
+            //   todos.map((todo, index) =>
+            //     todo.id === id ? { ...todo, checked: !todo.checked } : todo
+            //   )
+            // );
+            const data = await axios({
+              url: `http://localhost:8083/todos/${id}`,
+              method: "PATCH",
+            });
+            setTodos(data.data);
           }}
         >
           {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
