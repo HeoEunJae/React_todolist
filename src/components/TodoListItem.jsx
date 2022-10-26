@@ -7,7 +7,14 @@ import {
 } from "react-icons/md";
 import axios from "axios";
 
-const TodoListItem = ({ todo, setTodos, index, setActive }) => {
+const TodoListItem = ({
+  todo,
+  setTodos,
+  index,
+  setActive,
+  setContent,
+  setSelectedTodo,
+}) => {
   const { id, content, checked } = todo;
   return (
     <tr>
@@ -37,6 +44,8 @@ const TodoListItem = ({ todo, setTodos, index, setActive }) => {
           htmlFor="my-modal-5"
           className="modal-button cursor-pointer"
           onClick={() => {
+            setSelectedTodo(todo);
+            setContent(content);
             setActive(true);
           }}
         >
@@ -46,7 +55,7 @@ const TodoListItem = ({ todo, setTodos, index, setActive }) => {
       <td className="remove">
         <div
           onClick={async () => {
-            alert("클릭은 되냐");
+            alert(`${index + 1}번이 삭제되었습니다`);
             // setTodos((todos) => todos.filter((todo) => todo.id !== id));
             const data = await axios({
               url: `http://localhost:8083/todos/${id}`,

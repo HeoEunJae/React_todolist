@@ -7,6 +7,7 @@ import TodoList from "./components/TodoList";
 function App() {
   const [todos, setTodos] = useState([]);
   const [active, setActive] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState([]);
 
   useEffect(() => {
     /**APi 호출 코드*/
@@ -30,6 +31,8 @@ function App() {
         setTodos={setTodos}
         active={active}
         setActive={setActive}
+        selectedTodo={selectedTodo}
+        setSelectedTodo={setSelectedTodo}
       />
     </div>
   );

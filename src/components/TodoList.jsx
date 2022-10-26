@@ -1,7 +1,16 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import TodoListItem from "./TodoListItem";
 
-const TodoList = ({ todos, setTodos, active, setActive }) => {
+const TodoList = ({
+  todos,
+  setTodos,
+  active,
+  setActive,
+  selectedTodo,
+  setSelectedTodo,
+}) => {
+  const [content, setContent] = useState("");
   return (
     <div>
       <div className="overflow-x-auto mt-4">
@@ -23,6 +32,8 @@ const TodoList = ({ todos, setTodos, active, setActive }) => {
                 setTodos={setTodos}
                 index={index}
                 setActive={setActive}
+                setContent={setContent}
+                setSelectedTodo={setSelectedTodo}
               />
             ))}
           </tbody>
@@ -33,6 +44,7 @@ const TodoList = ({ todos, setTodos, active, setActive }) => {
           id="my-modal-5"
           className="modal-toggle"
           checked={active}
+          onChange={() => {}}
         />
         <div className="modal">
           <div className="modal-box w-11/12 max-w-5xl">
@@ -46,15 +58,32 @@ const TodoList = ({ todos, setTodos, active, setActive }) => {
             </div>
             <div>
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
+                  // setTodos((todos) =>
+                  //   todos.map((todo, index) =>
+                  //     selectedTodo.id === todo.id ? { ...todo, content } : todo
+                  //   )
+                  // );
+                  const data = await axios({
+                    url: `http://localhost:8083/todos/edit/${selectedTodo.id}`,
+                    method: "PATCH",
+                    data: {
+                      content,
+                    },
+                  });
+                  setTodos(data.data);
                   setActive(false);
                 }}
               >
-                <div>수정할 할 일을 입력해 주세요</div>
+                <div>수정할 내용을 입력해 주세요</div>
                 <input
                   type="text"
                   className="border rounded-md border-gray-500 w-60 h-30"
+                  value={content}
+                  onChange={(e) => {
+                    setContent(e.target.value);
+                  }}
                 />
               </form>
             </div>
